@@ -1,0 +1,39 @@
+ <div class="d-flex justify-content-center align-items-center vh-100">
+      <div class="border p-4 rounded shadow" style="min-width: 300px; max-width: 400px; width: 100%;">
+        <h2 class="text-center mb-4">Login</h2>
+        <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+          <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="text" class="form-control" id="email" formControlName="email" placeholder="Enter Gmail" />
+            <div *ngIf="loginForm.get('email')?.touched && loginForm.get('email')?.invalid" class="text-danger small">
+              <div *ngIf="loginForm.get('email')?.errors?.['required']">Email is required.</div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password" formControlName="password" placeholder="Enter password" />
+            <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger small">
+              <div *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</div>
+              <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+            </div>
+          </div>
+
+          <div class="d-flex justify-content-center mt-3">
+             <button type="submit" class="btn btn-primary w-50" [disabled]="!loginForm.valid">
+                Sign in
+             </button>
+          </div>
+
+        </form>
+
+         <div class="text-center mt-3">
+      <a href="#" class="small text-decoration-none">Forgot username/Password?</a>
+    </div>
+    
+    <div class="text-center mt-2">
+      Don't have an account? <a routerLink="/register" class="text-decoration-none">Sign up</a>
+    </div>
+
+      </div>
+    </div>

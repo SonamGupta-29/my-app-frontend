@@ -1,0 +1,67 @@
+<div class="d-flex justify-content-center align-items-center vh-100">
+  <div class="border p-4 rounded shadow-sm" style="min-width: 300px; max-width: 400px; width: 100%;">
+    <h2 class="text-center mb-4">Register</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+      <!-- Name -->
+      <div class="mb-3">
+        <label for="name" class="form-label">Name</label>
+        <input type="text" class="form-control" id="name" placeholder="Enter name" formControlName="name">
+        <div *ngIf="registerForm.get('name')?.touched && registerForm.get('name')?.invalid" class="text-danger small">
+          <div *ngIf="registerForm.get('name')?.errors?.['required']">Name is required.</div>
+        </div>
+      </div>
+
+      <!-- Number -->
+      <!-- <div class="mb-3">
+        <label for="number" class="form-label">Number</label>
+        <input type="number" class="form-control" id="number" placeholder="Enter number" formControlName="number">
+        <div *ngIf="registerForm.get('number')?.touched && registerForm.get('number')?.invalid" class="text-danger small">
+          <div *ngIf="registerForm.get('number')?.errors?.['required']">Number is required.</div>
+          <div *ngIf="registerForm.get('number')?.errors?.['pattern']">Number must be exactly 10 digits.</div>
+        </div>
+      </div> -->
+
+      <!-- Email -->
+      <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="Enter email" formControlName="email">
+        <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid" class="text-danger small">
+          <div *ngIf="registerForm.get('email')?.errors?.['required']">Email is required.</div>
+          <div *ngIf="registerForm.get('email')?.errors?.['pattern']">Enter a valid email address.</div>
+        </div>
+      </div>
+
+      <!-- Password -->
+      <div class="mb-3">
+        <label for="password" class="form-label">Password</label>
+        <input type="password" class="form-control" id="password" placeholder="Enter password" formControlName="password">
+        <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid" class="text-danger small">
+          <div *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</div>
+          <div *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 6 characters.</div>
+        </div>
+      </div>
+
+      <!-- Confirm Password -->
+      <!-- <div class="mb-3">
+        <label for="confirmPassword" class="form-label">Confirm Password</label>
+        <input type="password" class="form-control" id="confirmPassword" placeholder="Confirm password" formControlName="confirmPassword">
+        <div *ngIf="registerForm.get('confirmPassword')?.touched && !passwordsMatch" class="text-danger small">
+          Passwords do not match.
+        </div>
+      </div> -->
+
+      <div class="d-flex justify-content-center mt-3">
+             <button type="submit" class="btn btn-primary w-50" [disabled]="!registerForm.valid">
+                Sign Up
+             </button>
+      </div>
+
+    </form>
+    
+
+     <div class="text-center mt-2">
+      Already have an account? <a routerLink="/login" class="text-decoration-none">Sign in</a>
+    </div>
+  </div>
+</div>
