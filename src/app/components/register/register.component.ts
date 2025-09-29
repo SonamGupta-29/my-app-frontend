@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -14,7 +15,7 @@ export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
 
   // Constructor only for dependency injection
-  constructor(private fb: FormBuilder, private router: Router) {}
+  constructor(private fb: FormBuilder,private authService: AuthService, private router: Router) {}
 
   // ngOnInit for initialization logic
   ngOnInit(): void {
@@ -51,10 +52,16 @@ export class RegisterComponent implements OnInit {
       return;
     }
 
-    console.log('Registration Data:', this.registerForm.value);
-    alert('Registration successful!');
-
-    // Optional: redirect to login page
-    this.router.navigate(['/login']);
+   this.authService.register(this.registerForm.value).subscribe({
+    next: (res) => {
+      console.log('Registration successful', res);
+      alert('Registration successful!');
+      this.router.navigate(['/login']);
+    },
+    error: (err) => {
+      console.error('Error registering user', err);
+      alert('Registration failed. Check console for details.');
+    }
+  });
   }
 }

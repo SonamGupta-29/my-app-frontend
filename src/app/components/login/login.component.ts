@@ -24,25 +24,28 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin() {
-   if(this.loginForm.invalid){
-    this.loginForm.markAllAsTouched();
-    return; //stop execution if invalid
-   }
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
+      return; // stop execution if invalid
+    }
 
-//proceed with login
-const {email, password} = this.loginForm.value;
-this.authService.login({email, password}).subscribe({
-  next: (res: any) => {
-    this.authService.saveToken(res.token);
-    this.router.navigate(['/dashboard'])
-  },
-  error: (err) => {
-    console.error('Login failed', err.error.message);
-    alert(err.error.message);
+    // proceed with login
+    const { email, password } = this.loginForm.value;
+    this.authService.login({ email, password }).subscribe({
+      next: (res: any) => {
+        // ✅ Save token directly in localStorage
+        localStorage.setItem('token', res.token);
+        console.log('Saved token:', localStorage.getItem('token'));
+
+        // Optional: also save in AuthService if you want
+        this.authService.saveToken(res.token);
+
+        this.router.navigate(['/dashboard']);
+      },
+      error: (err) => {
+        console.error('Login failed', err.error.message);
+        alert(err.error.message);
+      }
+    });
   }
-});
-
-}
-
-
 }

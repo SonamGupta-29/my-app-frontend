@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,7 +10,7 @@ export class AuthService {
 
   private apiUrl = "http://localhost:3000/api/auth";
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   // Register
   register(userData: any): Observable<any> {
@@ -34,11 +35,19 @@ export class AuthService {
   // Logout
   logout(): void {
     localStorage.removeItem('authToken');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
   // Check if user is Logged In
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');
+    this.router.navigate(['/login']); 
   }
+
+
+//   getUserData(): Observable<any> {
+//   return this.http.get(`${this.apiUrl}/user/profile`);
+// }
 
 }
