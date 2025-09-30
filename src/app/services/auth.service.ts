@@ -22,6 +22,7 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/login`, credentials);
   }
 
+
   //Save Token
   saveToken(token: string): void {
     localStorage.setItem('authToken', token);
@@ -42,12 +43,6 @@ export class AuthService {
   // Check if user is Logged In
   isLoggedIn(): boolean {
     return !!localStorage.getItem('authToken');
-    this.router.navigate(['/login']); 
+    // this.router.navigate(['/login']); 
   }
-
-
-//   getUserData(): Observable<any> {
-//   return this.http.get(`${this.apiUrl}/user/profile`);
-// }
-
 }
