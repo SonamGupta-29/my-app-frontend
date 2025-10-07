@@ -4,11 +4,12 @@ import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { loadingInterceptor } from './interceptors/loading.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), 
     provideRouter(routes),   // Router for your standalone routes
-    provideHttpClient(withInterceptors([AuthInterceptor])), // HTTP Client with JWT interceptor
+    provideHttpClient(withInterceptors([AuthInterceptor, loadingInterceptor])) // HTTP Client with JWT interceptor
   ]
 };
 

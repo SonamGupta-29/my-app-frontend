@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
@@ -31,6 +31,15 @@ export class AuthService {
   // Get Token
   getToken(): string | null {
     return localStorage.getItem('authToken');
+  }
+
+ // Fetch user profile (protected)
+   // ✅ Fetch roles (protected API)
+  getRoles(): Observable<string[]> {
+    const token = localStorage.getItem('token'); // assuming you store JWT in localStorage
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.get<string[]>(`${this.apiUrl}/profile`, { headers });
   }
 
   // Logout
